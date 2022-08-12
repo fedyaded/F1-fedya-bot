@@ -1,5 +1,13 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
+btnAdmin = KeyboardButton("Панель Администратора")
+
+### ADMIN PANEL ###
+
+btnAll = KeyboardButton("Рассылка")
+btnOff = KeyboardButton("Разблокировать")
+menuAdmin = ReplyKeyboardMarkup(resize_keyboard=True).add(btnAll,btnOff)
+
 btnMain = KeyboardButton("Главное меню")
 
 ### Main menu ###
