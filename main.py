@@ -4,15 +4,13 @@ import logging
 from aiogram import Bot, Dispatcher, executor, types
 from db import Database
 import markups as nav
-from config import tg_bot_token, ADMIN_TOKEN
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token=tg_token_bot)
+bot = Bot(token="5576046231:AAE5bqvcSIJGdmyNiQsqMSuHORr5xZ7hFLQ")
 dp = Dispatcher(bot)
 db = Database('database.db')
-
-
+ADMIN_TOKEN = 434892676
 
 
 @dp.message_handler(commands=['start'])
