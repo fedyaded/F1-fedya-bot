@@ -4,13 +4,13 @@ import logging
 from aiogram import Bot, Dispatcher, executor, types
 from db import Database
 import markups as nav
+from config import tg_bot_token , ADMIN_TOKEN
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token="5576046231:AAE5bqvcSIJGdmyNiQsqMSuHORr5xZ7hFLQ")
+bot = Bot(token=tg_bot_token, parse_mode='HTML')
 dp = Dispatcher(bot)
 db = Database('database.db')
-ADMIN_TOKEN = 434892676
 
 
 @dp.message_handler(commands=['start'])
@@ -53,6 +53,18 @@ async def with_puree(message: types.Message):
             except Exception:
                 pass
     await message.answer(text)
+
+@dp.message_handler(Text(equals="Следующая гонка ➡"))
+async def without_puree(message: types.Message):
+    r = requests.get(
+        f"http://ergast.com/api/f1/current/next.json"
+    )
+    data = r.json()['MRData']['RaceTable']['Races'][0]
+
+    text ="<b>\nТрасса: </b>"+data['raceName']+ "<b>\nДата: </b>" + data["date"] + "<b>\nВремя: </b>"+ data["time"].replace("Z","")
+
+    if message.text == "Следующая гонка ➡":
+        await message.answer(text)
 
 @dp.message_handler(Text(equals="Чемпионат 🏆"))
 async def with_puree(message: types.Message):
